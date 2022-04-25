@@ -10,7 +10,7 @@ jQuery(document).ready(function(){
 	jQuery(document).on("click", ".cbr-country-shortcode", function(){	
 		jQuery('.cbr-shortcode-popup').show();
 	});
-	jQuery(document).on("change", "#calc_shipping_country, #billing_country, #shipping_country", function(){	
+	jQuery(document).on("change", "#calc_shipping_country, #shipping_country", function(){	
 		Cookies.set('country', jQuery(this).val());
 		set_customer_country_on_checkout_without_reload();
 	}); 
@@ -40,7 +40,7 @@ function set_customer_country_on_checkout(){
 	};		
 	
 	jQuery.ajax({
-		url: ajax_object.cbr_ajax_url,
+		url: cbr_ajax_object.cbr_ajax_url,
 		data: data,
 		type: 'POST',
 		dataType:"json",	
@@ -80,7 +80,7 @@ function set_customer_country_on_checkout_without_reload(){
 	};		
 	
 	jQuery.ajax({
-		url: ajax_object.cbr_ajax_url,
+		url: cbr_ajax_object.cbr_ajax_url,
 		data: data,
 		type: 'POST',
 		dataType:"json",	
@@ -106,7 +106,7 @@ jQuery(document).on("submit", ".woocommerce-shipping-calculator", function(){
 	};		
 	
 	jQuery.ajax({
-		url: ajax_object.cbr_ajax_url,
+		url: cbr_ajax_object.cbr_ajax_url,
 		data: data,
 		type: 'POST',
 		dataType:"json",	

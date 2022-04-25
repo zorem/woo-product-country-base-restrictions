@@ -156,8 +156,7 @@ class CBR_Admin_Settings {
 		$tab = isset( $_GET['tab'] ) ? sanitize_text_field($_GET['tab']) : '';
 		?>
 		<div class="zorem-layout__header">
-			<h1 class="zorem-layout__header-breadcrumbs">Country Restrictions</h1>
-			
+			<img class="zorem-layout__header-logo" src="<?php echo esc_url($fzpcr->plugin_dir_url() . 'assets/images/cbr-logo.png'); ?>">			
 			<div class="woocommerce-layout__activity-panel">
 				<div class="woocommerce-layout__activity-panel-tabs">
 					<button type="button" id="activity-panel-tab-help" class="components-button woocommerce-layout__activity-panel-tab">
@@ -176,11 +175,11 @@ class CBR_Admin_Settings {
 							<ul class="woocommerce-list woocommerce-quick-links__list">
 								<li class="woocommerce-list__item has-action">
 									<?php
-									$support_link = class_exists( 'Country_Based_Restrictions_PRO_Add_on' ) ? 'https://www.zorem.com/?support=1' : 'https://wordpress.org/support/plugin/woo-product-country-base-restrictions/#new-topic-0' ;
+									$support_link = 'https://wordpress.org/support/plugin/woo-product-country-base-restrictions/#new-topic-0' ;
 									?>
 									<a href="<?php echo esc_url( $support_link ); ?>" class="woocommerce-list__item-inner" target="_blank" >
 										<div class="woocommerce-list__item-before">
-											<span class="dashicons dashicons-media-document"></span>	
+											<img src="<?php echo esc_url($fzpcr->plugin_dir_url(__FILE__) . 'assets/images/get-support-icon.svg'); ?>">	
 										</div>
 										<div class="woocommerce-list__item-text">
 											<span class="woocommerce-list__item-title">
@@ -195,7 +194,7 @@ class CBR_Admin_Settings {
 								<li class="woocommerce-list__item has-action">
 									<a href="https://www.zorem.com/docs/country-based-restrictions-for-woocommerce/?utm_source=wp-admin&utm_medium=CBRDOCU&utm_campaign=add-ons" class="woocommerce-list__item-inner" target="_blank">
 										<div class="woocommerce-list__item-before">
-											<span class="dashicons dashicons-media-document"></span>
+											<img src="<?php echo esc_url($fzpcr->plugin_dir_url(__FILE__) . 'assets/images/documentation-icon.svg'); ?>">
 										</div>
 										<div class="woocommerce-list__item-text">
 											<span class="woocommerce-list__item-title">
@@ -207,23 +206,6 @@ class CBR_Admin_Settings {
 										</div>
 									</a>
 								</li>
-								<?php if ( !class_exists( 'Country_Based_Restrictions_PRO_Add_on' ) ) { ?>
-									<li class="woocommerce-list__item has-action">
-										<a href="https://www.zorem.com/product/country-based-restriction-pro/?utm_source=wp-admin&utm_medium=CBR&utm_campaign=add-ons" class="woocommerce-list__item-inner" target="_blank">
-											<div class="woocommerce-list__item-before">
-												<span class="dashicons dashicons-media-document"></span>
-											</div>
-											<div class="woocommerce-list__item-text">
-												<span class="woocommerce-list__item-title">
-													<div class="woocommerce-list-Text">Upgrade To Pro</div>
-												</span>
-											</div>
-											<div class="woocommerce-list__item-after">
-												<span class="dashicons dashicons-arrow-right-alt2"></span>
-											</div>
-										</a>
-									</li>
-								<?php } ?>
 							</ul>
 						</div>
 					</div>
@@ -234,18 +216,11 @@ class CBR_Admin_Settings {
 			<div class="cbr_admin_content">
 				<input id="tab1" type="radio" name="tabs" class="cbr_tab_input" data-tab="settings" data-label="<?php _e('Settings', 'woocommerce'); ?>" checked>
 				<label for="tab1" class="cbr_tab_label first_label" ><?php _e('Settings', 'woocommerce'); ?></label>
-			   <?php 
-					//callback do_action for license tab
-					do_action( "cbr_tab2_data_array" ); 
-				?>
 				<input id="tab4" type="radio" name="tabs" class="cbr_tab_input" data-tab="go-pro" data-label="<?php _e('Go Pro', 'woo-product-country-base-restrictions'); ?>" <?php if($tab == 'go-pro'){ echo 'checked'; } ?>>
 				<label for="tab4" class="cbr_tab_label" ><?php _e('Go Pro', 'woo-product-country-base-restrictions'); ?></label>
+				<div class="menu_devider"></div>
 				<?php require_once( 'views/cbr_setting_tab.php' ); ?>
 				<?php require_once( 'views/cbr_addons_tab.php' ); ?>
-				<?php 
-					//callback do_action for include file license and bulk
-					do_action( "cbr_pro_tab_content_data_array" ); 
-				?>
 			</div>
 		</div>
 		<div id="cbr-toast-example" aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">

@@ -5,10 +5,10 @@
 * Description: Restrict WooCommerce products in specific countries
 * Author: zorem
 * Author URI: https://www.zorem.com/
-* Version: 2.9
+* Version: 3.2
 * Text Domain: woo-product-country-base-restrictions
 * WC requires at least: 4.0
-* WC tested up to: 5.2.2
+* WC tested up to: 6.3
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -26,7 +26,7 @@ class ZH_Product_Country_Restrictions {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	public $version = '2.9';
+	public $version = '3.2';
 	
 	/*
 	* construct function
@@ -138,9 +138,11 @@ class ZH_Product_Country_Restrictions {
 	 * @return array         List of modified plugin action links.
 	 */
 	function my_plugin_action_links( $links ) {
-		$links = array_merge( array(
-			'<a href="' . esc_url( admin_url( '/admin.php?page=woocommerce-product-country-base-restrictions' ) ) . '">' . __( 'Settings', 'woocommerce' ) . '</a>'
-		), $links );
+		$links = array_merge( 
+			array( '<a href="' . esc_url( admin_url( '/admin.php?page=woocommerce-product-country-base-restrictions' ) ) . '">' . esc_html( 'Settings', 'woocommerce' ) . '</a>' ),
+			array( '<a href="' . esc_url( 'https://www.zorem.com/docs/country-based-restrictions-for-woocommerce/' ) . '" target="_blank">' . esc_html( 'Docs', 'woocommerce' ) . '</a>' ),
+			array( '<a href="' . esc_url( 'https://wordpress.org/support/plugin/woo-product-country-base-restrictions/reviews/#new-post' ) . '" target="_blank">' . esc_html( 'Review', 'woocommerce' ) . '</a>' ), 
+			$links );
 		return $links;
 	}
 	
@@ -278,8 +280,8 @@ class ZH_Product_Country_Restrictions {
 	*/	
 	public function wc_cbr_frontend_enqueue() {
 
-		wp_enqueue_script( 'cbr-pro-front-js', plugin_dir_url(__FILE__) . 'assets/js/front.js', array('jquery'), $this->version );
-		wp_localize_script( 'cbr-pro-front-js', 'ajax_object',
+		wp_enqueue_script( 'cbr-pro-front-js', plugin_dir_url(__FILE__) . 'assets/js/front.js', array('jquery'), $this->version, true );
+		wp_localize_script( 'cbr-pro-front-js', 'cbr_ajax_object',
             array( 'cbr_ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 
 		if( get_option('wpcbr_hide_restricted_product_variation') != '1' && !is_product() ) return;

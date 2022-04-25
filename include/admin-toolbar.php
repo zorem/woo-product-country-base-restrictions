@@ -78,7 +78,7 @@ class CBR_Admin_Toolbar {
 		$cookie_country = !empty($_COOKIE["country"]) ? sanitize_text_field($_COOKIE["country"]) : $country;
 		
 		if ( $cookie_country ) { 
-			WC()->customer->set_billing_country( $cookie_country );
+			//WC()->customer->set_billing_country( $cookie_country );
 			WC()->customer->set_shipping_country( $cookie_country );			
 		}
 		
@@ -97,7 +97,7 @@ class CBR_Admin_Toolbar {
 		$cookie_country = !empty($_POST['country']) ? sanitize_text_field($_POST['country']) : $_COOKIE["country"];		 
 
 		if ( $cookie_country ) { 
-			WC()->customer->set_billing_country( $cookie_country );
+			//WC()->customer->set_billing_country( $cookie_country );
 			WC()->customer->set_shipping_country( $cookie_country );
 		}
 		

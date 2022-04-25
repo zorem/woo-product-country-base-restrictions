@@ -4,7 +4,7 @@ Donate link:
 Tags: woocommerce, country restrictions
 Requires at least: 5.3
 Requires PHP: 7.0
-Tested up to: 5.7
+Tested up to: 5.9
 Stable tag: 5.1.1
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -61,10 +61,26 @@ Yes
 
 == Changelog ==
 
+= 3.2 =
+* Dev - WC Compatibility added upto 6.3
+* Dev - WP tested upto 5.9
+* Enhancement - Added compatibility with Customer Reviews for WooCommerce
+* Enhancement - Added Docs and Review link on plugins page
+* Tweak - Updated the settings page design
+* Fix - bug on checkout when billing country change
+
+= 3.1 =
+* Dev - WC Compatibility added upto 5.6
+
+= 3.0 =
+* Dev - WC Compatibility added upto 5.5.2
+
+= 2.9.1 =
+* Dev - WP Compatibility added upto 5.8
+
 = 2.9.0 =
 * Fix - Error - Warning: in_array() expects parameter 2 to be array, null given
 * Fix - Fix the issue of Subscription variation restriction
-* Dev - WC Compatibility added upto 5.2.2
 
 = 2.8.9 =
 * weak - updated settings design.

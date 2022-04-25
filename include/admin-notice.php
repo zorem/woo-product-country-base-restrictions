@@ -60,8 +60,8 @@ class CBR_Admin_Notice {
 		add_action( 'admin_notices', array( $this, 'cbr_pro_admin_notice' ) );
 		add_action('admin_init', array( $this, 'cbr_pro_plugin_notice_ignore' ) );
 		
-		add_action( 'admin_notices', array( $this, 'admin_notice_after_update' ) );		
-		add_action('admin_init', array( $this, 'cbr_plugin_notice_ignore' ) );
+		//add_action( 'admin_notices', array( $this, 'admin_notice_after_update' ) );		
+		//add_action('admin_init', array( $this, 'cbr_plugin_notice_ignore' ) );
 		
     }
 	
@@ -128,10 +128,10 @@ class CBR_Admin_Notice {
 	function cbr_pro_admin_notice() {
 		if ( class_exists( 'Country_Based_Restrictions_PRO_Add_on' ) ) return;
 		
-		if ( get_option('cbr_pro_plugin_notice_ignore') ) return;
+		if ( get_option('Cbr_Pro_Plugin_Promotion_Notice') ) return;
 		
-		$message = __('Save time by applying bulk country restrictions by the product categories, tags, attributes and shipping classes. Enable and disable payment gateways by the customer billing or shipping country and more...', 'woo-product-country-base-restrictions');
-		echo '<div class="updated notice"><p>'. __( $message ) .' 
+		$message = __('Upgrade to Country Based Restrictions Pro and save time by applying bulk country restrictions by the product categories, tags, attributes and shipping classes. Enable and disable payment gateways by country and more... Use code <strong>CBRPRO20</strong> to get  20% off (valid by March 31st)', 'woo-product-country-base-restrictions');
+		echo '<div class="updated notice"><h3 style="margin-bottom: 0;">Country Based Restriction Pro</h3><p>'. __( $message ) .' 
 		<span style="display: block; margin: 0.5em 0.5em 0 0; clear: both;">
 			<a class ="button-secondary" href="https://www.zorem.com/products/country-based-restriction-pro/" target="_blank">Upgrade to Pro</a>
 			<a class ="button-secondary" href="?cbr-pro-plugin-ignore-notice=true" class="dismiss-notice" target="_parent">Dismiss this notice</a></span>
@@ -146,7 +146,7 @@ class CBR_Admin_Notice {
 	function cbr_pro_plugin_notice_ignore(){
 		
 		if (isset($_GET['cbr-pro-plugin-ignore-notice'])) {
-			update_option( 'cbr_pro_plugin_notice_ignore', 'true' );
+			update_option( 'Cbr_Pro_Plugin_Promotion_Notice', 'true' );
 		}
 	}
     

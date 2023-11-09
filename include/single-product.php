@@ -26,7 +26,7 @@ class CBR_Single_Product {
 	public static function get_instance() {
 
 		if ( null === self::$instance ) {
-			self::$instance = new self;
+			self::$instance = new self();
 		}
 
 		return self::$instance;
@@ -45,16 +45,16 @@ class CBR_Single_Product {
 	*
 	* @since 1.0.0
 	*/
-	function __construct() {
+	public function __construct() {
 		$this->init();
-    }
+	}
 
 	/*
 	* init function
 	*
 	* @since 1.0.0
 	*/
-    function init() {
+	public function init() {
 		
 		//hook for custom product meta field
 		add_action( 'woocommerce_process_product_meta', array( $this, 'save_custom_product_fields' ) );
@@ -64,14 +64,14 @@ class CBR_Single_Product {
 		add_action( 'woocommerce_product_after_variable_attributes', array( $this, 'add_custom_variation_fields'), 10, 3 );
 		add_action( 'woocommerce_save_product_variation', array( $this, 'save_custom_variation_fields'), 10, 2 );
 			
-    }
+	}
 	
 	/*
 	* Adding a CBR settings tab to the Products Metabox
 	*
 	* @since 1.0.0
 	*/
-	function add_cbr_product_data_tab( $product_data_tabs ) {
+	public function add_cbr_product_data_tab( $product_data_tabs ) {
 		?>
 		<style>
 		#woocommerce-product-data ul.wc-tabs li.cbr_tab a::before {
@@ -98,7 +98,7 @@ class CBR_Single_Product {
 	* @since 1.0.0
 	* @para $post
 	*/
-	function add_custom_product_fields() {
+	public function add_custom_product_fields() {
 		global $post;
 		echo '<div id="cbr_product_data" class="panel woocommerce_options_panel hidden">';
 		
@@ -121,7 +121,7 @@ class CBR_Single_Product {
 
 		$selections = get_post_meta( $post->ID, '_restricted_countries', true );
 
-		if(empty($selections) || ! is_array($selections)) { 
+		if (empty($selections) || ! is_array($selections)) { 
 			$selections = array(); 
 		}
 		$countries_obj   = new WC_Countries();
@@ -129,23 +129,24 @@ class CBR_Single_Product {
 		asort( $countries );
 		?>
 		<p class="form-field forminp restricted_countries">
-		<label for="_restricted_countries"><?php echo __( 'Select countries', 'woo-product-country-base-restrictions' ); ?></label>
+		<label for="_restricted_countries"><?php echo esc_html( 'Select countries', 'woo-product-country-base-restrictions' ); ?></label>
 		<select id="_restricted_countries" multiple="multiple" name="_restricted_countries[]" style="width:100%;max-width: 350px;"
-			data-placeholder="<?php esc_attr_e( 'Choose countries&hellip;', 'woocommerce' ); ?>" title="<?php esc_attr_e( 'Country', 'woocommerce' ) ?>"
+			data-placeholder="<?php esc_attr_e( 'Choose countries&hellip;', 'woocommerce' ); ?>" title="<?php esc_attr_e( 'Country', 'woocommerce' ); ?>"
 			class="wc-enhanced-select" >
 			<?php
-		if ( ! empty( $countries ) ) {
-			foreach ( $countries as $key => $val ) {
-				echo '<option value="' . esc_attr( $key ) . '" ' . selected( in_array( $key, $selections ), true, false ).'>' . $val . '</option>';
+			if ( ! empty( $countries ) ) {
+				foreach ( $countries as $key => $val ) {
+					echo '<option value="' . esc_attr( $key ) . '" ' . selected( in_array( $key, $selections ), true, false ) . '>' . esc_html($val) . '</option>';
+				}
 			}
-		}
-		?>
+			?>
 		</select>
-		</p><?php
-		if( empty( $countries ) ) {
-			echo "<p><b>" .__( "You need to setup shipping locations in WooCommerce settings ", 'woo-product-country-base-restrictions')." <a href='admin.php?page=wc-settings'> ". __( "HERE", 'woo-product-country-base-restrictions' )."</a> ".__( "before you can choose country restrictions", 'woo-product-country-base-restrictions' )."</b></p>";
+		</p>
+		<?php
+		if ( empty( $countries ) ) {
+			echo '<p><b>' . esc_html( 'You need to setup shipping locations in WooCommerce settings ', 'woo-product-country-base-restrictions') . " <a href='admin.php?page=wc-settings'> " . esc_html( 'HERE', 'woo-product-country-base-restrictions' ) . '</a> ' . esc_html( 'before you can choose country restrictions', 'woo-product-country-base-restrictions' ) . '</b></p>';
 		}
-		echo "<p>You can set the general products visibility rules on the <a href='".admin_url('admin.php?page=woocommerce-product-country-base-restrictions&tab=settings')."' target='_blank'>[CBR settings]</a></p>";
+		echo "<p>You can set the general products visibility rules on the <a href='" . esc_url(admin_url('admin.php?page=woocommerce-product-country-base-restrictions&tab=settings')) . "' target='_blank'>[CBR settings]</a></p>";
 		echo '</div>';
 		echo '</div>';
 	}
@@ -156,7 +157,7 @@ class CBR_Single_Product {
 	* @since 1.0.0
 	* @para $loop, $variation_data, $variation
 	*/
-	function add_custom_variation_fields( $loop, $variation_data, $variation ) {
+	public function add_custom_variation_fields( $loop, $variation_data, $variation ) {
 
 		woocommerce_wp_select(
 			array(
@@ -175,27 +176,28 @@ class CBR_Single_Product {
 		);
 
 		$selections = get_post_meta( $variation->ID, '_restricted_countries', true );
-		if(empty($selections) || ! is_array($selections)) { 
+		if (empty($selections) || ! is_array($selections)) { 
 			$selections = array(); 
 		}
 		$countries_obj   = new WC_Countries();
 		$countries   = $countries_obj->__get('countries');
 		asort( $countries );
-?>
+		?>
 		<p class="form-field forminp restricted_countries">
-		<label for="_restricted_countries[<?php echo $variation->ID; ?>]"><?php echo __( 'Select countries', 'woo-product-country-base-restrictions' ); ?></label>
-		<select multiple="multiple" name="_restricted_countries[<?php echo $variation->ID; ?>][]" style="width:100%;max-width: 350px;"
-			data-placeholder="<?php esc_attr_e( 'Choose countries&hellip;', 'woocommerce' ); ?>" title="<?php esc_attr_e( 'Country', 'woocommerce' ) ?>"
+		<label for="_restricted_countries[<?php echo esc_html($variation->ID); ?>]"><?php echo esc_html( 'Select countries', 'woo-product-country-base-restrictions' ); ?></label>
+		<select multiple="multiple" name="_restricted_countries[<?php echo esc_html($variation->ID); ?>][]" style="width:100%;max-width: 350px;"
+			data-placeholder="<?php esc_attr_e( 'Choose countries&hellip;', 'woocommerce' ); ?>" title="<?php esc_attr_e( 'Country', 'woocommerce' ); ?>"
 			class="wc-enhanced-select">
 		<?php	
 		if ( ! empty( $countries ) ) {
 			foreach ( $countries as $key => $val ) {
-				echo '<option value="' . esc_attr( $key ) . '" ' . selected( in_array( $key, $selections ), true, false ).'>' . $val . '</option>';
+				echo '<option value="' . esc_attr( $key ) . '" ' . selected( in_array( $key, $selections ), true, false ) . '>' . esc_html($val) . '</option>';
 			}
 		}
 		?>
 		</select>
-		</p><?php            
+		</p>
+		<?php            
 	}
 	
 	/*
@@ -204,21 +206,22 @@ class CBR_Single_Product {
 	* @since 1.0.0
 	* @para $post_id
 	*/
-	function save_custom_product_fields( $post_id ) {
-		$restriction = sanitize_text_field($_POST['_fz_country_restriction_type']);
-		if(! is_array($restriction)) {
+	public function save_custom_product_fields( $post_id ) {
+		$restriction = isset($_POST['_fz_country_restriction_type']) ? sanitize_text_field($_POST['_fz_country_restriction_type']) : '';
+		if (! is_array($restriction)) {
 
-			if( !isset( $_POST['_restricted_countries'] ) || empty( $_POST['_restricted_countries'] ) ) {
+			if ( !isset( $_POST['_restricted_countries'] ) || empty( $_POST['_restricted_countries'] ) ) {
 				update_post_meta( $post_id, '_fz_country_restriction_type', 'all' );
 			} else {
-				if ( !empty( $restriction ) )
-				update_post_meta( $post_id, '_fz_country_restriction_type', $restriction );
+				if ( !empty( $restriction ) ) {
+					update_post_meta( $post_id, '_fz_country_restriction_type', $restriction );
+				}
 			}
 			
 			$countries = array();
 			
-			if(isset($_POST["_restricted_countries"])) {
-				$countries = wc_clean( $_POST['_restricted_countries'] );
+			if (isset($_POST['_restricted_countries'])) {
+				$countries = isset($_POST['_restricted_countries']) ? wc_clean( $_POST['_restricted_countries'] ) : '';
 			}
 			
 			update_post_meta( $post_id, '_restricted_countries', $countries );
@@ -231,19 +234,20 @@ class CBR_Single_Product {
 	* @since 1.0.0
 	* @para $post_id
 	*/
-	function save_custom_variation_fields( $post_id ) {
-		$restriction = sanitize_text_field($_POST['_fz_country_restriction_type'][ $post_id ]);
+	public function save_custom_variation_fields( $post_id ) {
+		$restriction = isset($_POST['_fz_country_restriction_type'][ $post_id ]) ? sanitize_text_field($_POST['_fz_country_restriction_type'][ $post_id ]) : '';
 		
-		if( !isset( $_POST['_restricted_countries'] ) || empty( $_POST['_restricted_countries'] ) ) {
+		if ( !isset( $_POST['_restricted_countries'] ) || empty( $_POST['_restricted_countries'] ) ) {
 			update_post_meta( $post_id, '_fz_country_restriction_type', 'all' );
 		} else {
-			if ( !empty( $restriction ) )
-			update_post_meta( $post_id, '_fz_country_restriction_type', $restriction );
+			if ( !empty( $restriction ) ) {
+				update_post_meta( $post_id, '_fz_country_restriction_type', $restriction );
+			}
 		}
 
 		$countries = array();
-		if(isset($_POST["_restricted_countries"])) {
-			$countries = wc_clean( $_POST['_restricted_countries'][ $post_id ] );
+		if (isset($_POST['_restricted_countries'])) {
+			$countries = isset( $_POST['_restricted_countries'][ $post_id ] ) ? wc_clean( $_POST['_restricted_countries'][ $post_id ] ) : '';
 		}
 		update_post_meta( $post_id, '_restricted_countries', $countries );
 	}

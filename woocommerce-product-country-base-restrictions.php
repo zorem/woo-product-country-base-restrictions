@@ -5,10 +5,10 @@
 * Description: Restrict WooCommerce products in specific countries
 * Author: zorem
 * Author URI: https://www.zorem.com/
-* Version: 3.3
+* Version: 3.5
 * Text Domain: woo-product-country-base-restrictions
 * WC requires at least: 4.0
-* WC tested up to: 6.8
+* WC tested up to: 8.2.1
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class ZH_Product_Country_Restrictions {
 	
-	var $user_country = "";	
+	public $user_country = '';	
 	
 	/**
 	 * Country Based Restrictions for WooCommerce
@@ -26,20 +26,26 @@ class ZH_Product_Country_Restrictions {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	public $version = '3.3';
+	public $version = '3.5';
+	public $toolbar;
+	public $restriction;
+	public $plugin_path;
+	public $settings;
+	public $notice;
+	public $product;
 	
 	/*
 	* construct function
 	*
 	* @since 1.0.0
 	*/
-	function __construct() {
+	public function __construct() {
 		
-		if ( defined( 'DOING_CRON' ) and DOING_CRON ) {
+		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
 			return;
 		}
 		
-		if( ! $this->is_cbr_pro_active() ) {
+		if ( ! $this->is_cbr_pro_active() ) {
 			if ( $this->is_wc_active() ) {		
 				$this->includes();
 				$this->settings->init();
@@ -58,7 +64,7 @@ class ZH_Product_Country_Restrictions {
 	 * @since 1.0.0
 	 *
 	 */	
-	function includes() {
+	public function includes() {
 		
 		require_once $this->get_plugin_path() . '/include/admin-settings.php';
 		$this->settings = CBR_Admin_Settings::get_instance();
@@ -78,12 +84,12 @@ class ZH_Product_Country_Restrictions {
 	}
 	
 	/**
-	 * plugin file dir hooks
+	 * Plugin file dir hooks
 	 *
 	 * @since 1.0.0
 	 *
 	 */
-	public function plugin_dir_url(){
+	public function plugin_dir_url() {
 		return plugin_dir_url( __FILE__ );
 	}
 	
@@ -105,19 +111,19 @@ class ZH_Product_Country_Restrictions {
 	}
 	
 	/**
-	 * init hooks
+	 * Init hooks
 	 *
 	 * @since 1.0.0
 	 *
 	 */
-	function plugin_init() {
+	public function plugin_init() {
 		
 		$i18n_dir = basename( dirname( __FILE__ ) ) . '/lang/';         
 		load_plugin_textdomain( 'woo-product-country-base-restrictions', false, $i18n_dir );
 		
 		//hooks in admin plugin page	
-		add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ),  array( $this , 'my_plugin_action_links' ) );
-		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ),  array( $this , 'my_plugin_action_PRO_links' ));
+		add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this , 'my_plugin_action_links' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this , 'my_plugin_action_PRO_links' ));
 		
 		//hooks for frontend
 		add_action( 'wp_head', array( $this, 'wc_cbr_frontend_enqueue' ), 999 );
@@ -137,7 +143,7 @@ class ZH_Product_Country_Restrictions {
 	 * @param  array  $links List of existing plugin action links.
 	 * @return array         List of modified plugin action links.
 	 */
-	function my_plugin_action_links( $links ) {
+	public function my_plugin_action_links( $links ) {
 		$links = array_merge( 
 			array( '<a href="' . esc_url( admin_url( '/admin.php?page=woocommerce-product-country-base-restrictions' ) ) . '">' . esc_html( 'Settings', 'woocommerce' ) . '</a>' ),
 			array( '<a href="' . esc_url( 'https://www.zorem.com/docs/country-based-restrictions-for-woocommerce/' ) . '" target="_blank">' . esc_html( 'Docs', 'woocommerce' ) . '</a>' ),
@@ -156,9 +162,11 @@ class ZH_Product_Country_Restrictions {
 	 * @param  array  $links List of existing plugin action links.
 	 * @return array         List of modified plugin action links.
 	 */
-	function my_plugin_action_PRO_links( $links ) {
+	public function my_plugin_action_PRO_links( $links ) {
 		
-		if ( class_exists( 'Country_Based_Restrictions_PRO_Add_on' ) ) return $links;
+		if ( class_exists( 'Country_Based_Restrictions_PRO_Add_on' ) ) {
+			return $links;
+		}
 		
 		$links = array_merge( $links, array(
 			'<a target="_blank" style="color: #45b450; font-weight: bold;" href="' . esc_url( 'https://www.zorem.com/products/country-based-restriction-pro/') . '">' . __( 'Go Pro', 'woocommerce' ) . '</a>'
@@ -170,7 +178,6 @@ class ZH_Product_Country_Restrictions {
 	/**
 	 * Check if WC is active
 	 *
-	 * @access private
 	 * @since  1.0.0
 	 * @return bool
 	*/
@@ -195,13 +202,12 @@ class ZH_Product_Country_Restrictions {
 	/**
 	 * Display WC active notice
 	 *
-	 * @access public
 	 * @since  1.0.0
 	*/
 	public function notice_activate_wc() {
 		?>
 		<div class="error">
-			<p><?php printf( __( 'Please install and activate %sWooCommerce%s for Country Based Restrictions for WooCommerce!', 'woo-product-country-base-restrictions' ), '<a href="' . admin_url( 'plugin-install.php?tab=search&s=WooCommerce&plugin-search-input=Search+Plugins' ) . '">', '</a>' ); ?></p>
+			<p><?php printf( esc_html( 'Please install and activate %1$sWooCommerce%2$s for Country Based Restrictions for WooCommerce!', 'woo-product-country-base-restrictions' ), '<a href="' . esc_url(admin_url( 'plugin-install.php?tab=search&s=WooCommerce&plugin-search-input=Search+Plugins' ) . '">', '</a>' ) ); ?></p>
 		</div>
 		<?php
 	}
@@ -209,7 +215,6 @@ class ZH_Product_Country_Restrictions {
 	/**
 	 * Check if CBR PRO is active
 	 *
-	 * @access private
 	 * @since  1.0.0
 	 * @return bool
 	*/
@@ -233,9 +238,9 @@ class ZH_Product_Country_Restrictions {
 	 *
 	 * @since 1.0.0
 	 */
-	function admin_error_notice() {
+	public function admin_error_notice() {
 		$message = __('Product Country Restrictions requires WooCommerce 3.0 or newer', 'woo-product-country-base-restrictions');
-		echo"<div class='error'><p>$message</p></div>";
+		echo esc_html("<div class='error'><p>$message</p></div>");
 	}
 	
 
@@ -246,10 +251,10 @@ class ZH_Product_Country_Restrictions {
 	*/	
 	public function wc_esrc_enqueue() {
 		
-		$page = isset( $_GET["page"] ) ? $_GET["page"] : "";
+		$page = isset( $_GET['page'] ) ? sanitize_text_field($_GET['page']) : '';
 		
 		// Add condition for css & js include for admin page  
-		if( $page != 'woocommerce-product-country-base-restrictions') {
+		if ( 'woocommerce-product-country-base-restrictions' != $page ) {
 			return;
 		}
 			
@@ -281,14 +286,19 @@ class ZH_Product_Country_Restrictions {
 	public function wc_cbr_frontend_enqueue() {
 
 		wp_enqueue_script( 'cbr-pro-front-js', plugin_dir_url(__FILE__) . 'assets/js/front.js', array('jquery'), $this->version, true );
-		wp_localize_script( 'cbr-pro-front-js', 'cbr_ajax_object',
-            array( 'cbr_ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+		wp_localize_script( 'cbr-pro-front-js', 'cbr_ajax_object', array( 'cbr_ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 
-		if( get_option('wpcbr_hide_restricted_product_variation') != '1' && !is_product() ) return;
+		if ( '1' != get_option('wpcbr_hide_restricted_product_variation') && !is_product() ) {
+			return;
+		}
 		wp_enqueue_style( 'cbr-fronend-css', plugin_dir_url(__FILE__) . 'assets/css/frontend.css', array(), $this->version );
 	}
 	
 }
 $fzpcr = new ZH_Product_Country_Restrictions();
 
-
+add_action( 'before_woocommerce_init', function() {
+	if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+} );

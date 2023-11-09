@@ -4,7 +4,7 @@ Donate link:
 Tags: woocommerce, country restrictions
 Requires at least: 5.3
 Requires PHP: 7.0
-Tested up to: 6.0
+Tested up to: 6.4
 Stable tag: 5.1.1
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -30,9 +30,9 @@ If you have products that you want to be available to purchase only to customers
 * Hide Product Price for Restricted Products
 * Remove Single product rule by Bulk Action.
 
-[Get the Country Based Restrictions Pro >](https://www.zorem.com/products/country-based-restriction-pro/)
+[Get the Country Based Restrictions Pro >](https://www.zorem.com/product/country-based-restriction-pro/)
 
-[Documentation](https://www.zorem.com/docs/country-based-restrictions-for-woocommerce/country-based-restriction-pro/)
+[Documentation](https://docs.zorem.com/docs/country-based-restrictions-pro/)
 
 [Click Here Purchase License](https://www.zorem.com/products/country-based-restriction-pro/)
 
@@ -60,6 +60,16 @@ Yes
 
 
 == Changelog ==
+
+= 3.5 =
+* Dev - Added Compatibility with PHP 8.2
+* Dev - WC Compatibility added upto 8.2.1
+* Dev - WP tested upto 6.4
+
+= 3.4 =
+* Dev - WC Compatibility with HPOS
+* Dev - WC Compatibility added upto 7.8.1
+* Dev - WP tested upto 6.2
 
 = 3.3 =
 * Dev - WC Compatibility added upto 6.8

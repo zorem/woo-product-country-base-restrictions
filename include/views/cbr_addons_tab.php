@@ -57,7 +57,12 @@ $pro_plugins = array(
 ?>
 <section id="cbr_content4" class="cbr_tab_section">
 	<div class="d_table addons_page_dtable" style="">
-		<section id="content_tab_addons" class="<?php if ( class_exists( 'Country_Based_Restrictions_PRO_Add_on' ) ) { ?>inner_tab_section<?php } ?>"> 
+		<section id="content_tab_addons" class="
+		<?php
+		if ( class_exists( 'Country_Based_Restrictions_PRO_Add_on' ) ) {
+			?>
+			inner_tab_section
+			<?php } ?>"> 
 			<div class="addon_inner_section">
 				<div class="row">
 					<div class="col cbr-features-list cbr-btn">

@@ -92,7 +92,7 @@ class CBR_Product_Restriction {
 		add_action( 'woocommerce_calculated_shipping', array( $this, 'update_cart_and_checkout_items'), 10 );
 		
 		//callback for checkout page
-		add_action( 'woocommerce_review_order_before_cart_contents', array( $this, 'update_cart_and_checkout_items' ), 10 );
+		add_action( 'woocommerce_review_order_after_shipping', array( $this, 'update_cart_and_checkout_items' ), 10 );
 		
 		//Query args modify for Visual Composser products of restricted
 		add_filter( 'woocommerce_shortcode_products_query', array( $this,  'vc_product_restricted_query'), 10, 1 );			
@@ -258,8 +258,8 @@ class CBR_Product_Restriction {
 		if ( get_option('wpcbr_debug_mode') && is_admin() ) {
 			$cookie_country = isset($_COOKIE['country']) ? sanitize_text_field($_COOKIE['country']) : '';
 			if ( !empty( $cookie_country ) ) {
-				$this->user_country = $cookie_country;
-				return $this->user_country;
+				$user_country = $cookie_country;
+				return $user_country;
 			}
 		}
 		
@@ -270,20 +270,20 @@ class CBR_Product_Restriction {
 				$shipping_country = $woocommerce->customer->get_shipping_country();
 				$cookie_country = !empty($_COOKIE['country']) ? sanitize_text_field($_COOKIE['country']) : $shipping_country;
 				if ( isset($cookie_country) ) {
-					$this->user_country = $cookie_country;
-					return $this->user_country;
+					$user_country = $cookie_country;
+					return $user_country;
 				}
 			}
 		}				
 		
-		if ( empty( $this->user_country ) ) {
+		if ( empty( $user_country ) ) {
 			$geoloc = WC_Geolocation::geolocate_ip();
 			$cookie_country = !empty($_COOKIE['country']) ? sanitize_text_field($_COOKIE['country']) : $geoloc['country'];
-			$this->user_country = $cookie_country;
-			return $this->user_country;
+			$user_country = $cookie_country;
+			return $user_country;
 		}
 		
-		return $this->user_country;
+		return $user_country;
 	}
 	
 	/*

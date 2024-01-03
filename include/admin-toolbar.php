@@ -94,11 +94,11 @@ class CBR_Admin_Toolbar {
 	 * @since 1.0.0
 	 */
 	public function set_cart_page_country() {
+
 		$COOKIE = !empty($_COOKIE['country']) ? sanitize_text_field($_COOKIE['country']) : '';
 		$cookie_country = !empty($_POST['country']) ? sanitize_text_field($_POST['country']) : $COOKIE;		 
 
 		if ( $cookie_country ) { 
-			//WC()->customer->set_billing_country( $cookie_country );
 			WC()->customer->set_shipping_country( $cookie_country );
 		}
 		
@@ -181,4 +181,3 @@ class CBR_Admin_Toolbar {
 		}	
 	}
 }
-

@@ -1,5 +1,5 @@
 ﻿=== Country Based Restrictions for WooCommerce ===
-Contributors: zorem
+Contributors: zorem,kuldipzorem,gaurav1092
 Donate link: 
 Tags: woocommerce, country restrictions
 Requires at least: 5.3
@@ -60,6 +60,11 @@ Yes
 
 
 == Changelog ==
+
+= 3.6 =
+* Dev - Added Compatibility with Wholesale for Woocommerce plugin
+* Dev - WC Compatibility added upto 8.4.0
+* Dev - WP tested upto 6.4
 
 = 3.5 =
 * Dev - Added Compatibility with PHP 8.2

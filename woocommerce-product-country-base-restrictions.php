@@ -5,10 +5,10 @@
 * Description: Restrict WooCommerce products in specific countries
 * Author: zorem
 * Author URI: https://www.zorem.com/
-* Version: 3.5
+* Version: 3.6
 * Text Domain: woo-product-country-base-restrictions
 * WC requires at least: 4.0
-* WC tested up to: 8.2.1
+* WC tested up to: 8.4.0
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -26,7 +26,7 @@ class ZH_Product_Country_Restrictions {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	public $version = '3.5';
+	public $version = '3.6';
 	public $toolbar;
 	public $restriction;
 	public $plugin_path;
@@ -267,8 +267,8 @@ class ZH_Product_Country_Restrictions {
 		wp_enqueue_style( 'cbr-admin-css', plugin_dir_url(__FILE__) . 'assets/css/admin.css', array(), $this->version );
 		wp_enqueue_style( 'cbr-material-css', plugin_dir_url(__FILE__) . 'assets/css/material.css', array(), $this->version );
 			
-		wp_enqueue_style('select2-cbr', plugins_url('assets/css/select2.min.css', __FILE__ ));
-		wp_enqueue_script('select2-cbr', plugins_url('assets/js/select2.min.js', __FILE__));
+		wp_enqueue_style('select2-cbr', plugins_url('assets/css/select2.min.css', __FILE__ ), array(), $this->version );
+		wp_enqueue_script('select2-cbr', plugins_url('assets/js/select2.min.js', __FILE__), array(), $this->version);
 		
 		wp_register_style( 'woocommerce_admin_styles', WC()->plugin_url() . '/assets/css/admin.css', array(), WC_VERSION );
 		wp_enqueue_style( 'woocommerce_admin_styles' );

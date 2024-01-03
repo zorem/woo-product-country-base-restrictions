@@ -6,7 +6,6 @@ global $fzpcr;
 ?>
 <section id="cbr_content1" class="cbr_tab_section">
 	<div class="cbr_tab_inner_container">
-		<h1 class="tab_main_heading"><?php esc_html_e( 'Settings', 'woo-product-country-base-restrictions' ); ?></h1>
 		<form method="post" id="cbr_setting_tab_form">
 			<div class="accordion heading">
 				<label>

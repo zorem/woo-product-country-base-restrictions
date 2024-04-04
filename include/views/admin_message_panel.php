@@ -1,4 +1,8 @@
-<?php $dismissable_url = esc_url(  add_query_arg( 'cbr-pro-plugin-ignore-notice', 'true' ) ); ?>
+<?php
+// Add nonce to the dismissable URL
+$nonce = wp_create_nonce('cbr_dismiss_notice');
+$dismissable_url = esc_url(add_query_arg(['cbr-pro-plugin-ignore-notice' => 'true', 'nonce' => $nonce]));
+?>
 <div class="admin-message-panel">
 	<div class="admin-message-row is-dismissible">
 		<h1 class="admin_message_header"><?php esc_html_e('Upgrade to CBR PRO!', 'woo-product-country-base-restrictions'); ?></h1>

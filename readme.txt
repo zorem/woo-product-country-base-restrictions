@@ -4,7 +4,7 @@ Donate link:
 Tags: woocommerce, country restrictions
 Requires at least: 5.3
 Requires PHP: 7.0
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 5.1.1
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -60,6 +60,15 @@ Yes
 
 
 == Changelog ==
+
+= 3.6.2 =
+* Dev - WC Compatibility added upto 8.7.0
+* Dev - WP tested upto 6.5
+* Enhancement – Added UTM link for all the external links to zorem.com
+
+= 3.6.1 =
+* Dev - WC Compatibility added upto 8.5.2
+* Fix - Patched a vulnerability concerning nonces in admin notices
 
 = 3.6 =
 * Dev - Added Compatibility with Wholesale for Woocommerce plugin

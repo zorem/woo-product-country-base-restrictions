@@ -67,7 +67,10 @@ class CBR_Admin_Notice {
 	public function cbr_pro_plugin_notice_ignore() {
 
 		if (isset($_GET['cbr-pro-plugin-ignore-notice'])) {
-			set_transient( 'cbr_pro_admin_notice_ignore', 'yes', 2592000 );
+			$nonce = isset($_GET['nonce']) ? sanitize_text_field($_GET['nonce']) : '';
+			if (isset($nonce) && wp_verify_nonce($nonce, 'cbr_dismiss_notice')) {
+				set_transient( 'cbr_pro_admin_notice_ignore', 'yes', 2592000 );
+			}
 		}
 	}
 

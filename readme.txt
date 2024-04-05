@@ -61,6 +61,9 @@ Yes
 
 == Changelog ==
 
+= 3.6.3 =
+* Fix - The error is jQuery(...).block is not a function
+
 = 3.6.2 =
 * Dev - WC Compatibility added upto 8.7.0
 * Dev - WP tested upto 6.5

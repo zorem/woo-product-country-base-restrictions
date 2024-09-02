@@ -4,8 +4,8 @@ Donate link:
 Tags: woocommerce, country restrictions
 Requires at least: 5.3
 Requires PHP: 7.0
-Tested up to: 6.5
-Stable tag: 5.1.1
+Tested up to: 6.6
+Stable tag: 3.6.6
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,18 @@ Yes
 
 
 == Changelog ==
+
+= 3.6.6 =
+* Dev - WP tested upto 6.6
+* Dev - WC Compatibility added upto 9.2.3
+* Dev - Added Compatibility with Advance search WOO plugin
+
+= 3.6.5 =
+* Dev - WC Compatibility added upto 9.0.2
+* Fix - Restriction not working on search products.
+
+= 3.6.4 =
+* Fix - The error is undefined $suffix varibale
 
 = 3.6.3 =
 * Fix - The error is jQuery(...).block is not a function

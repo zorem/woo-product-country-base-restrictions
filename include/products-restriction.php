@@ -293,12 +293,12 @@ class CBR_Product_Restriction {
 	*/
 	public function product_by_country_pre_get_posts( $query ) {
 		
-		if ( is_admin() ) {
+		if ( !$query->is_search() && is_admin() ) {
 			return;
 		}
 		
 		// when post_type is not product or not a category/shop page return 
-		if ( isset($query->query_vars['post_type']) && 'product' != $query->query_vars['post_type'] && !isset( $query->query_vars['product_cat'] ) ) {
+		if ( isset( $query->query_vars[ 'post_type' ] ) && 'product' != $query->query_vars[ 'post_type' ] && !isset( $query->query_vars[ 'product_cat' ] ) ) {
 			return;
 		}
 		

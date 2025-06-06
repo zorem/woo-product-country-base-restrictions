@@ -147,9 +147,9 @@ class CBR_Admin_Notice {
 		</style>
 		<div class="notice updated notice-success cbr-dismissable-notice">
 			<a href="<?php echo $dismissable_url; ?>" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></a>
-			<h2>🌍 Expand Your Control with Country Based Restrictions PRO!</h2>
-			<p>Upgrade to <strong><a href="https://www.zorem.com/product/country-based-restriction-pro/">Country Based Restrictions PRO</a></strong> and easily restrict products and payment gateways by country, apply bulk restriction rules, and customize the shopping experience for different regions.</p>
-			<p><strong>🎉 Get 20% Off*!</strong> Use code <strong>CBRPRO20</strong> at checkout.</p>
+			<h2>🌍 Upgrade to Country Based Restrictions PRO & Take Full Control!</h2>
+			<p>Enhance your WooCommerce store with <strong><a href="https://www.zorem.com/product/country-based-restriction-pro/">Country Based Restrictions PRO</a></strong>. Apply bulk restriction rules by category, tag, or shipping class, and control payment gateways based on customer country—perfect for geo-targeted selling and compliance.</p>
+			<p><strong>🎉 Get 20% Off!</strong> for new customers only. Use code <strong>CBRPRO20</strong> at checkout.</p>
 			<p>
 				<a href="https://www.zorem.com/product/country-based-restriction-pro/" class="button-primary cbr_notice_btn">Upgrade Now</a>
 				<a class="button-primary cbr_notice_btn" href="<?php echo $dismissable_url; ?>">Dismiss</a>
@@ -208,7 +208,7 @@ class CBR_Admin_Notice {
 			<p>We hope <strong>Country Based Restrictions</strong> is helping you easily manage product restrictions by country! Your feedback helps us improve and bring you even better features.</p>
 			<p>If you’re enjoying the plugin, please take a moment to leave us a <strong>5-star review</strong>—it means a lot to us! ⭐</p>
 			<p><a href="https://wordpress.org/support/plugin/woo-product-country-base-restrictions/reviews/#new-post" class="button-primary cbr_notice_btn" target="_blank"><?php esc_html_e('Leave a Review', 'woo-product-country-base-restrictions'); ?></a>
-			<a href="<?php echo $dismissable_url; ?>" class="button-primary cbr_notice_btn" target="_blank"><?php esc_html_e('Dismiss', 'woo-product-country-base-restrictions'); ?></a></p>
+			<a href="<?php echo $dismissable_url; ?>" class="button-primary cbr_notice_btn"><?php esc_html_e('Dismiss', 'woo-product-country-base-restrictions'); ?></a></p>
 		</div>
 		<?php
 	}

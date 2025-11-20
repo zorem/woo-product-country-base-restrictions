@@ -5,10 +5,10 @@
 * Description: Restrict WooCommerce products in specific countries
 * Author: zorem
 * Author URI: https://www.zorem.com/
-* Version: 3.7.3
+* Version: 3.7.6
 * Text Domain: woo-product-country-base-restrictions
 * WC requires at least: 4.0
-* WC tested up to: 9.8.5
+* WC tested up to: 10.3.5
 * Requires Plugins: woocommerce
 */
 
@@ -27,7 +27,7 @@ class ZH_Product_Country_Restrictions {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	public $version = '3.7.3';
+	public $version = '3.7.6';
 	public $toolbar;
 	public $restriction;
 	public $plugin_path;
@@ -280,7 +280,8 @@ class ZH_Product_Country_Restrictions {
 		wp_enqueue_media();
 		
 		// Add tiptip js and css file
-		wp_enqueue_script( 'cbr-admin-js', plugin_dir_url(__FILE__) . 'assets/js/admin.js', array('jquery', 'wp-util', 'wp-color-picker'), $this->version, true );
+		wp_register_script( 'wc-jquery-tiptip', WC()->plugin_url() . '/assets/js/jquery-tiptip/jquery.tipTip.min.js', array( 'jquery', 'dompurify' ), WC_VERSION, true );
+		wp_enqueue_script( 'cbr-admin-js', plugin_dir_url(__FILE__) . 'assets/js/admin.js', array('jquery', 'wp-util', 'wp-color-picker', 'wc-jquery-tiptip'), $this->version, true );
 		wp_enqueue_script( 'cbr-material-min-js', plugin_dir_url(__FILE__) . 'assets/js/material.min.js', array(), $this->version );
 		wp_enqueue_style( 'cbr-admin-css', plugin_dir_url(__FILE__) . 'assets/css/admin.css', array(), $this->version );
 		wp_enqueue_style( 'cbr-material-css', plugin_dir_url(__FILE__) . 'assets/css/material.css', array(), $this->version );
@@ -290,9 +291,6 @@ class ZH_Product_Country_Restrictions {
 		
 		wp_register_style( 'woocommerce_admin_styles', WC()->plugin_url() . '/assets/css/admin.css', array(), WC_VERSION );
 		wp_enqueue_style( 'woocommerce_admin_styles' );
-	
-		wp_register_script( 'wc-jquery-tiptip', WC()->plugin_url() . '/assets/js/jquery-tiptip/jquery.tipTip.min.js', array( 'jquery' ), WC_VERSION, true );
-		wp_enqueue_script( 'wc-jquery-tiptip' );
 		
 	}
 	

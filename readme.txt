@@ -4,8 +4,8 @@ Donate link:
 Tags: woocommerce, country restrictions
 Requires at least: 5.3
 Requires PHP: 7.0
-Tested up to: 6.9.1
-Stable tag: 3.7.7
+Tested up to: 6.9.4
+Stable tag: 3.7.8
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,9 +61,13 @@ Yes
 
 == Changelog ==
 
+= 3.7.8 =
+* Dev - WP tested upto 6.9.4.
+* Dev - WC Compatibility added upto 10.7.0.
+
 = 3.7.7 =
 * Dev - WP tested upto 6.9.1.
-* Dev - WC Compatibility added upto 10.5.0.
+* Dev - WC Compatibility added upto 10.4.3.
 * Improved – Updated PRO promotional notice on the settings page UI.
 
 = 3.7.6 =
